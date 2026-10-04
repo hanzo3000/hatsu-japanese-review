@@ -12,16 +12,18 @@
 <script>
 (async()=>{
   try{
-    let html=await fetch('./base-v4.0.1.html?v=410',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()});
+    let html=await fetch('./base-v4.0.1.html?v=411',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()});
     html=html.replace('<html lang="zh-Hant">','<html lang="zh-Hans">')
       .replace(/Hatsu on · 日本語複習本/g,'日本語复习本')
       .replace(/v4\.0\.1/g,'v4.1.0');
     const favicon='<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2215%22 fill=%22%232f5d50%22/%3E%3Ctext x=%2232%22 y=%2245%22 text-anchor=%22middle%22 font-size=%2240%22 font-family=%22serif%22 fill=%22white%22%3E%E5%88%9D%3C/text%3E%3C/svg%3E">';
     html=html.replace('</head>',favicon+'</head>');
-    const seedEnd=html.indexOf('</script>',html.indexOf('id="seedData"'));
-    if(seedEnd<0) throw new Error('seedData not found');
-    html=html.slice(0,seedEnd+9)+'<script src="./prepatch-v4.1.0.js?v=410"><\/script>'+html.slice(seedEnd+9);
-    html=html.replace('</body>','<script src="./postpatch-v4.1.0.js?v=410"><\/script></body>');
+    const closeScript='</scr'+'ipt>';
+    const seedStart=html.indexOf('id="seedData"');
+    const seedEnd=html.indexOf(closeScript,seedStart);
+    if(seedStart<0||seedEnd<0) throw new Error('seedData not found');
+    html=html.slice(0,seedEnd+closeScript.length)+'<script src="./prepatch-v4.1.0.js?v=411"><'+'/script>'+html.slice(seedEnd+closeScript.length);
+    html=html.replace('</body>','<script src="./postpatch-v4.1.0.js?v=411"><'+'/script></body>');
     document.open();document.write(html);document.close();
   }catch(e){document.body.innerHTML='<div class="loading"><b>加载失败</b><span>请刷新页面后重试。 '+String(e)+'</span></div>'}
 })();
