@@ -5,25 +5,27 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
 <meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet">
-<title>日本語复习本 v4.1.0</title>
+<title>日本語复习本 v4.2.0</title>
 <style>body{margin:0;background:#f4f1e9;color:#1f2925;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif}.loading{max-width:720px;margin:18vh auto;padding:28px;text-align:center}.loading b{display:block;font-size:20px;margin-bottom:8px}.loading span{color:#6f7772;font-size:13px}</style>
 </head>
-<body><div class="loading"><b>日本語复习本</b><span>正在加载 v4.1.0…</span></div>
+<body><div class="loading"><b>日本語复习本</b><span>正在加载 v4.2.0…</span></div>
 <script>
 (async()=>{
   try{
-    let html=await fetch('./base-v4.0.1.html?v=411',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()});
+    let html=await fetch('./base-v4.0.1.html?v=420',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()});
     html=html.replace('<html lang="zh-Hant">','<html lang="zh-Hans">')
       .replace(/Hatsu on · 日本語複習本/g,'日本語复习本')
-      .replace(/v4\.0\.1/g,'v4.1.0');
+      .replace(/v4\.0\.1/g,'v4.2.0');
     const favicon='<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2215%22 fill=%22%232f5d50%22/%3E%3Ctext x=%2232%22 y=%2245%22 text-anchor=%22middle%22 font-size=%2240%22 font-family=%22serif%22 fill=%22white%22%3E%E5%88%9D%3C/text%3E%3C/svg%3E">';
     html=html.replace('</head>',favicon+'</head>');
     const closeScript='</scr'+'ipt>';
     const seedStart=html.indexOf('id="seedData"');
     const seedEnd=html.indexOf(closeScript,seedStart);
     if(seedStart<0||seedEnd<0) throw new Error('seedData not found');
-    html=html.slice(0,seedEnd+closeScript.length)+'<script src="./prepatch-v4.1.0.js?v=411"><'+'/script>'+html.slice(seedEnd+closeScript.length);
-    html=html.replace('</body>','<script src="./postpatch-v4.1.0.js?v=411"><'+'/script></body>');
+    const pre='<script src="./prepatch-v4.1.0.js?v=420"><'+'/script>'+'<script src="./prepatch-v4.2.0.js?v=420"><'+'/script>';
+    html=html.slice(0,seedEnd+closeScript.length)+pre+html.slice(seedEnd+closeScript.length);
+    const post='<script src="./postpatch-v4.1.0.js?v=420"><'+'/script>'+'<script src="./postpatch-v4.2.0.js?v=420"><'+'/script>';
+    html=html.replace('</body>',post+'</body>');
     document.open();document.write(html);document.close();
   }catch(e){document.body.innerHTML='<div class="loading"><b>加载失败</b><span>请刷新页面后重试。 '+String(e)+'</span></div>'}
 })();
