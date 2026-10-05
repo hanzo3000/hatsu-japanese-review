@@ -12,7 +12,7 @@
 <script>
 (async()=>{
   try{
-    let html=await fetch('./base-v4.0.1.html?v=421',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()});
+    let html=await fetch('./base-v4.0.1.html?v=421b',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()});
     html=html.replace('<html lang="zh-Hant">','<html lang="zh-Hans">')
       .replace(/Hatsu on · 日本語複習本/g,'日本語复习本')
       .replace(/v4\.0\.1/g,'v4.2.1');
@@ -22,9 +22,9 @@
     const seedStart=html.indexOf('id="seedData"');
     const seedEnd=html.indexOf(closeScript,seedStart);
     if(seedStart<0||seedEnd<0) throw new Error('seedData not found');
-    const pre='<script src="./prepatch-v4.1.0.js?v=421"><'+'/script>'+'<script src="./prepatch-v4.2.0.js?v=421"><'+'/script>'+'<script src="./prepatch-v4.2.1.js?v=421"><'+'/script>';
+    const pre='<script src="./prepatch-v4.1.0.js?v=421b"><'+'/script>'+'<script src="./prepatch-v4.2.0.js?v=421b"><'+'/script>'+'<script src="./prepatch-v4.2.1.js?v=421b"><'+'/script>';
     html=html.slice(0,seedEnd+closeScript.length)+pre+html.slice(seedEnd+closeScript.length);
-    const post='<script src="./postpatch-v4.1.0.js?v=421"><'+'/script>'+'<script src="./postpatch-v4.2.0.js?v=421"><'+'/script>';
+    const post='<script src="./postpatch-v4.1.0.js?v=421b"><'+'/script>'+'<script src="./postpatch-v4.2.0.js?v=421b"><'+'/script>'+'<script src="./postpatch-v4.2.1.js?v=421b"><'+'/script>';
     html=html.replace('</body>',post+'</body>');
     document.open();document.write(html);document.close();
   }catch(e){document.body.innerHTML='<div class="loading"><b>加载失败</b><span>请刷新页面后重试。 '+String(e)+'</span></div>'}
