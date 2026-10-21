@@ -22,9 +22,9 @@
     const seedStart=html.indexOf('id="seedData"');
     const seedEnd=html.indexOf(closeScript,seedStart);
     if(seedStart<0||seedEnd<0) throw new Error('seedData not found');
-    const pre='<script src="./prepatch-v4.1.0.js?v=430"><'+'/script>'+'<script src="./prepatch-v4.2.0.js?v=430"><'+'/script>'+'<script src="./prepatch-v4.3.0.js?v=430"><'+'/script>';
+    const pre='<script src="./prepatch-v4.1.0.js?v=430"><'+'/script>'+'<script src="./prepatch-v4.2.0.js?v=430"><'+'/script>'+'<script src="./prepatch-v4.2.1.js?v=430"><'+'/script>';
     html=html.slice(0,seedEnd+closeScript.length)+pre+html.slice(seedEnd+closeScript.length);
-    const post='<script src="./postpatch-v4.1.0.js?v=430"><'+'/script>'+'<script src="./postpatch-v4.2.0.js?v=430"><'+'/script>'+'<script src="./postpatch-v4.3.0.js?v=430"><'+'/script>';
+    const post='<script src="./postpatch-v4.1.0.js?v=430"><'+'/script>'+'<script src="./postpatch-v4.2.0.js?v=430"><'+'/script>'+'<script src="./postpatch-v4.2.1.js?v=430"><'+'/script>'+'<script src="./postpatch-v4.3.0.js?v=430"><'+'/script>';
     html=html.replace('</body>',post+'</body>');
     document.open();document.write(html);document.close();
   }catch(e){document.body.innerHTML='<div class="loading"><b>加载失败</b><span>请刷新页面后重试。 '+String(e)+'</span></div>'}
